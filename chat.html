@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Messenger</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .chat-bubble {
+            max-width: 60%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .user {
+            align-self: flex-end;
+            background-color: #6200ea;
+            text-align: right;
+        }
+        .bot {
+            align-self: flex-start;
+            background-color: #333;
+        }
+        .chat-input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #1e1e1e;
+        }
+        .chat-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            color: #ffffff;
+            background-color: #333;
+        }
+        .chat-input::placeholder {
+            color: #bbb;
+        }
+        .send-button {
+            background-color: #6200ea;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .send-button:hover {
+            background-color: #3700b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container" id="chat-container">
+        <!-- Les bulles de chat seront ajoutées ici -->
+    </div>
+
+    <div class="chat-input-container">
+        <input type="text" id="chat-input" class="chat-input" placeholder="Tapez votre message...">
+        <button class="send-button" onclick="sendMessage()">Envoyer</button>
+    </div>
+
+    <script>
+        function addChatBubble(message, className) {
+            const chatContainer = document.getElementById('chat-container');
+            const chatBubble = document.createElement('div');
+            chatBubble.className = 'chat-bubble ' + className;
+            chatBubble.textContent = message;
+            chatContainer.appendChild(chatBubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const message = chatInput.value.trim();
+            if (message) {
+                addChatBubble(message, 'user');
+                chatInput.value = '';
+                saveMessage('user', message);
+                simulateBotResponse(message);
+            }
+        }
+
+        function simulateBotResponse(userMessage) {
+            // Simule une réponse du bot après un délai
+            setTimeout(() => {
+                const botResponse = getBotResponse(userMessage);
+                addChatBubble(botResponse, 'bot');
+                saveMessage('bot', botResponse);
+            }, 1000);
+        }
+
+        function getBotResponse(userMessage) {
+            // Fonction simplifiée pour générer des réponses du bot
+            const responses = {
+                'bonjour': 'Bonjour! Comment puis-je vous aider aujourd\'hui?',
+                'comment ça va': 'Je vais bien, merci! Et vous?',
+                'quel est ton nom': 'Je suis un chatbot! En quoi puis-je vous aider?'
+                // Ajoutez plus de paires clé-valeur pour des réponses plus variées
+            };
+            userMessage = userMessage.toLowerCase();
+            return responses[userMessage] || 'Désolé, je ne comprends pas cette question.';
+        }
+
+        function saveMessage(sender, message) {
+            let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+            chatHistory.push({ sender, message });
+            localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+        }
+
+        function loadChatHistory() {
+            const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+            chatHistory.forEach(entry => {
+                addChatBubble(entry.message, entry.sender);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChatHistory();
+
+            // Permettre l'envoi du message en appuyant sur Entrée
+            document.getElementById('chat-input').addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
