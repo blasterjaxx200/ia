@@ -1,0 +1,236 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style pour l'icône ChatGPT */
+.message.chatgpt-message {
+  position: relative;
+  padding-left: 60px; /* Ajustez selon vos besoins pour l'espace à gauche du texte */
+}
+
+.message.chatgpt-message .avatar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px; /* Ajustez la taille de l'avatar */
+  height: 40px; /* Ajustez la taille de l'avatar */
+}
+
+.message.chatgpt-message .avatar img {
+  width: 100%; /* Assurez-vous que l'image de l'avatar remplit la taille définie */
+  height: auto; /* Ajustement automatique de la hauteur */
+}
+
+.message.chatgpt-message p {
+  margin-left: 50px; /* Ajustez pour aligner le texte avec l'icône */
+  position: relative;
+}
+
+.message.chatgpt-message:before {
+  content: "\f086"; /* Code de l'icône ChatGPT */
+  font-family: "Font Awesome 5 Free"; /* Famille de police Font Awesome */
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px; /* Taille de l'icône */
+  color: #666; /* Couleur de l'icône */
+}
+
+
+
+
+.message.bot-message {
+  display: flex;
+  align-items: flex-start;
+}
+
+.message.bot-message .avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4CAF50; /* Couleur de l'icône, à ajuster selon vos besoins */
+  font-size: 24px; /* Taille de l'icône, à ajuster selon vos besoins */
+}
+
+.message.bot-message .avatar i {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-content {
+  background-color: #e0e0e0;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+
+.bot-message .message-content {
+  border-bottom-left-radius: 0;
+}
+
+.user-message .message-content {
+  background-color: #474044;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+
+.discord-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100; /* Assurez-vous que le bouton Discord est au-dessus du reste du contenu */
+  background-color: #7289DA;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.discord-button:hover {
+  background-color: #5f73b7;
+}
+
+
+.chat-container {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header {
+  background-color: #000000;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.bot-message {
+  background-color: #e0e0e0;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+
+.user-message {
+  background-color: #4CAF50;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+.chat-form {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+}
+
+#chat-input {
+  flex-grow: 1;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 20px;
+  margin-right: 10px;
+  outline: none;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button i {
+  font-size: 18px;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+}
+
+.typing-indicator div {
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  background-color: #000;
+  border-radius: 50%;
+  animation: typing 2s infinite;
+}
+
+.typing-indicator div:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.typing-indicator div:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+@keyframes typing {
+  0% { opacity: 0.2; }
+  20% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+
+
+
+
+
+
+
+
