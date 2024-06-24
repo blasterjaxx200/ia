@@ -4,7 +4,11 @@ const responses = {
   "quelle heure est-il": "Je suis désolé, je ne peux pas vous dire l'heure exacte. Veuillez vérifier sur votre appareil.",
   "merci": "De rien! Je suis là pour vous aider.",
   "au revoir": "Au revoir! Passez une bonne journée!",
-  "qui est tu": "je suis un model de language v1 developpé par blasterjaxx je suis toujours au stade de developpement 😉 "
+  "qui est tu": "je suis un model de language v1 developpé par blasterjaxx je suis toujours au stade de developpement 😉 ",
+  "quel sont vos capacités": "je peux répondre à vos questions, traduire des texte écrire differents types de contenus créatifs et vous aider a accomplir de nombreuses autres tâches n'hésitez pas a me mettre a l'épreuve !",
+  "quel est la météo aujourd'hui": "je suis un nouveau modèle de language developpé par blasterjaxx et je n'ai actuellement as la capacité a acceder a internet afin d'accomplir cette tache si vous voulez contacter le developpeur veuillez rejoindre le serveur discord ci dessus ;)",
+  "raconte moi une blague": "quel genre d'humour ? envoyez humour noir ou humour classic !",
+  
 };
 
 document.getElementById('chat-form').addEventListener('submit', function(e) {
