@@ -8,7 +8,6 @@ const responses = {
   "quel sont vos capacités": "je peux répondre à vos questions, traduire des texte écrire differents types de contenus créatifs et vous aider a accomplir de nombreuses autres tâches n'hésitez pas a me mettre a l'épreuve !",
   "quel est la météo aujourd'hui": "je suis un nouveau modèle de language developpé par blasterjaxx et je n'ai actuellement as la capacité a acceder a internet afin d'accomplir cette tache si vous voulez contacter le developpeur veuillez rejoindre le serveur discord ci dessus ;)",
   "raconte moi une blague": "quel genre d'humour ? envoyez humour noir ou humour classic !",
-  
 };
 
 document.getElementById('chat-form').addEventListener('submit', function(e) {
@@ -24,7 +23,7 @@ document.getElementById('chat-form').addEventListener('submit', function(e) {
 
   setTimeout(() => {
       removeTypingIndicator();
-      const botResponse = responses[messageText] || "Je suis désolé, mais je ne comprends pas cette question.";
+      const botResponse = findBestResponse(messageText) || "Je suis désolé, mais je ne comprends pas cette question.";
       addMessage('bot', botResponse);
   }, 2000);
 });
@@ -70,5 +69,44 @@ function removeTypingIndicator() {
   }
 }
 
+// Fonction pour calculer la distance de Levenshtein
+function levenshteinDistance(a, b) {
+  const matrix = Array.from({ length: a.length + 1 }, () => []);
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
 
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + 1
+        );
+      }
+    }
+  }
 
+  return matrix[a.length][b.length];
+}
+
+// Fonction pour trouver la réponse la plus proche
+function findBestResponse(input) {
+  let closestMatch = null;
+  let shortestDistance = Infinity;
+
+  for (const key in responses) {
+    const distance = levenshteinDistance(input, key);
+    if (distance < shortestDistance) {
+      shortestDistance = distance;
+      closestMatch = key;
+    }
+  }
+
+  // Seuil de tolérance pour les fautes d'orthographe (ajustez selon vos besoins)
+  const tolerance = 3;
+
+  return shortestDistance <= tolerance ? responses[closestMatch] : null;
+}
